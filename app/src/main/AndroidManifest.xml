@@ -24,6 +24,7 @@
             </intent-filter>
         </receiver>
         <receiver android:name=".broadcastreceiver.AlarmeReceiver" />
+        <service android:name=".BoundService" />
     </application>
 
 </manifest>

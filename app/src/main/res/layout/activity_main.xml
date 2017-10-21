@@ -97,4 +97,16 @@
         android:layout_height="wrap_content"
         android:text="Programar Alarme"/>
 
+
+
+
+    <TextView
+        android:id="@+id/tvTempo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_weight="0.5"
+        android:textSize="22sp"
+        android:text="0"/>
+
 </LinearLayout>

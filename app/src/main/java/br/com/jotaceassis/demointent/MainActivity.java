@@ -2,7 +2,11 @@ package br.com.jotaceassis.demointent;
 
 import android.app.AlarmManager;
 import android.app.PendingIntent;
+import android.content.ComponentName;
+import android.content.Context;
 import android.content.Intent;
+import android.content.ServiceConnection;
+import android.os.IBinder;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -19,9 +23,13 @@ public class MainActivity extends AppCompatActivity {
     private TextView tvLogin;
     private TextView tvPlacarHome;
     private TextView tvPlacarVisitante;
+    private TextView timestampText;
 
     private int placarHome = 0;
     private int placarVisitante = 0;
+
+    BoundService mBoundService;
+    boolean mServicedBound = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,6 +39,7 @@ public class MainActivity extends AppCompatActivity {
         tvLogin = (TextView) findViewById(R.id.tvlogin);
         tvPlacarHome = (TextView) findViewById(R.id.tvPlacarHome);
         tvPlacarVisitante = (TextView) findViewById(R.id.tvPlacarVisitante);
+        timestampText = (TextView) findViewById(R.id.tvTempo);
 
         if (savedInstanceState != null) {
             placarHome = savedInstanceState.getInt(Constants.KEY_PLACAR_CASA);
@@ -42,7 +51,14 @@ public class MainActivity extends AppCompatActivity {
         if (getIntent() != null) {
             iniciarActivity();
         }
+    }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+        Intent intent = new Intent(this, BoundService.class);
+        startService(intent);
+        bindService(intent, mServiceConnection, Context.BIND_AUTO_CREATE);
     }
 
     @Override
@@ -50,6 +66,17 @@ public class MainActivity extends AppCompatActivity {
         super.onSaveInstanceState(outState);
         outState.putInt(Constants.KEY_PLACAR_CASA, placarHome);
         outState.putInt(Constants.KEY_PLACAR_VISITANTE, placarVisitante);
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        if (mServicedBound) {
+            unbindService(mServiceConnection);
+            mServicedBound = false;
+        }
+        Intent intent = new Intent(MainActivity.this, BoundService.class);
+        stopService(intent);
     }
 
     private void iniciarActivity() {
@@ -89,6 +116,21 @@ public class MainActivity extends AppCompatActivity {
                 System.currentTimeMillis() + (i + 1000),
                 pendingIntent);
 
-        Toast.makeText(this, "Alarm set in " + i + "segundos", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "Alarm set in " + i + " segundos", Toast.LENGTH_SHORT).show();
     }
+
+    private ServiceConnection mServiceConnection = new ServiceConnection() {
+        @Override
+        public void onServiceConnected(ComponentName name, IBinder service) {
+            BoundService.MyBinder myBinder = (BoundService.MyBinder) service;
+            mBoundService = myBinder.getService();
+            mServicedBound = true;
+            timestampText.setText(mBoundService.getTimeStamp());
+        }
+
+        @Override
+        public void onServiceDisconnected(ComponentName name) {
+            mServicedBound = false;
+        }
+    };
 }
