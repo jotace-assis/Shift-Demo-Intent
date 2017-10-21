@@ -17,12 +17,12 @@
         android:layout_height="wrap_content"
         android:gravity="right"
         android:text="Ola"/>
-<!--
-    <view
+
+    <View
         android:layout_width="match_parent"
         android:layout_height="2dp"
         android:background="#DDD" />
--->
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
