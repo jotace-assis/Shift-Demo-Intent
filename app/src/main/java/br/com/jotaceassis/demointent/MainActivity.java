@@ -29,8 +29,8 @@ public class MainActivity extends AppCompatActivity {
             placarHome = savedInstanceState.getInt(Constants.KEY_PLACAR_CASA);
             placarVisitante = savedInstanceState.getInt(Constants.KEY_PLACAR_VISITANTE);
         }
-        tvPlacarHome.setText(String.valueOf(placarHome));
-        tvPlacarVisitante.setText(String.valueOf(placarVisitante));
+        setPlacar(tvPlacarHome, placarHome);
+        setPlacar(tvPlacarVisitante, placarVisitante);
 
         if (getIntent() != null) {
             iniciarActivity();
@@ -60,7 +60,11 @@ public class MainActivity extends AppCompatActivity {
 
     private int incrementaPlacar(TextView tvPlacar, int placar) {
         placar++;
-        tvPlacar.setText(String.valueOf(placar));
+        setPlacar(tvPlacar, placar);
         return placar;
+    }
+
+    private void setPlacar(TextView tvPlacar, int intPlacar) {
+        tvPlacar.setText(String.valueOf(intPlacar));
     }
 }

@@ -38,4 +38,10 @@
         android:text="Conectar"
         android:onClick="conectar"/>
 
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Teste Broadcast"
+        android:onClick="testeBroadcast"/>
+
 </LinearLayout>
