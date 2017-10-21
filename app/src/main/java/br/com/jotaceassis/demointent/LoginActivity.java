@@ -40,7 +40,9 @@ public class LoginActivity extends AppCompatActivity {
                 switch (resultCode) {
                     case RESULT_OK:
                         boolean isLoginValido = data.getBooleanExtra(Constants.KEY_RESULT_LOGIN, false);
-                        if (isLoginValido) Toast.makeText(this, "Login Valido", Toast.LENGTH_SHORT).show();
+                        if (isLoginValido) {
+                            sendMainActivity();
+                        }
                         else Toast.makeText(this, "Login Invalido", Toast.LENGTH_SHORT).show();
                         break;
                     case RESULT_CANCELED:
@@ -49,6 +51,12 @@ public class LoginActivity extends AppCompatActivity {
                 break;
             default:
         }
+    }
 
+    private void sendMainActivity() {
+        Intent MainActivity = new Intent(this, MainActivity.class);
+
+        MainActivity.putExtra(Constants.KEY_LOGIN, etLogin.getText().toString());
+        startActivity(MainActivity);
     }
 }

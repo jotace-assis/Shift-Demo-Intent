@@ -40,6 +40,6 @@ public class ValidaLoginActivity extends AppCompatActivity {
                 finish();
             }
 
-        }, 2000);
+        }, 100);
     }
 }
