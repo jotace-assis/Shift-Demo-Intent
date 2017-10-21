@@ -84,4 +84,17 @@
             android:layout_weight="0.5"
             android:text="Gol"/>
     </LinearLayout>
+
+    <EditText
+        android:id="@+id/tvTempoJogo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Tempo do jogo em segundos"/>
+    <Button
+        android:id="@+id/btProgramarAlarme"
+        android:onClick="programarAlarme"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Programar Alarme"/>
+
 </LinearLayout>

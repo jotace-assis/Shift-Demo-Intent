@@ -23,6 +23,7 @@
                 <action android:name="android.app.action.LOGIN_SUCESSO" />
             </intent-filter>
         </receiver>
+        <receiver android:name=".broadcastreceiver.AlarmeReceiver" />
     </application>
 
 </manifest>
